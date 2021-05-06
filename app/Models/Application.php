@@ -5,12 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Jobpost extends Model
+class Application extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'job_title',
-        'job_description',
-        'job_image',
-    ];
 }
