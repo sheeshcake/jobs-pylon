@@ -60,7 +60,7 @@
               </div>
 
             </article><!-- End blog entry -->
-
+            @if(!auth('user')->check())
             <div class="blog-comments">
               <div class="reply-form">
                 <h4>Job Application</h4>
@@ -70,6 +70,7 @@
                     {{ session()->get('msg') }}
                   </div>
                 @endif
+                
                 <form action="{{ route('site.apply') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="jobpost_id" value="{{$data['jobpost'][0]['id']}}">
@@ -113,13 +114,17 @@
                     <button type="submit" class="btn btn-primary">Submit Application</button>
 
                 </form>
-
+                
               </div>
 
             </div><!-- End blog comments -->
-
+            @else
+              <form action="{{ route('site.apply') }}" method="POST">
+                <button type="submit" class="btn btn-primary" disabled>Apply for this position</button>
+              </form>
+            @endif
           </div><!-- End blog entries list -->
-
+         
           <div class="col-lg-4">
 
             <div class="sidebar">

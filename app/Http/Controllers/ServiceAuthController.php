@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\User;
 use App\Models\Application;
+use App\Models\UserDetails;
 
 use Socialite;
 use Hash;
@@ -50,6 +51,12 @@ class ServiceAuthController extends Controller
                     "profile_image" => $user->user['picture'],
                     "username" => $user->email,
                     "password" => Hash::make($user->email . $user->user['family_name'])
+                ])->id;
+                UserDetails::create([
+                    "user_id" => $adduser,
+                    "user_contact_number" => $application[0]['contact_number'],
+                    "user_address" => $application[0]['address'],
+                    "user_resume" => $application[0]['resume_file'],
                 ]);
                 if(Auth::guard('user')->attempt($credentials)){
                     return redirect()->intended('user/dashboard');
