@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\UserDetails;
+
+use Auth;
+
 class UserController extends Controller
 {
     public function __construct(){
@@ -16,7 +20,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        echo "User";
+        $user_details = UserDetails::where("user_id", "=", Auth::user()->id)->get()->toArray();
+        return view("layout.user.profile")->with("data", [
+            "user_details" => $user_details[0]
+        ]);
     }
 
     /**

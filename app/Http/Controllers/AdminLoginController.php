@@ -22,7 +22,7 @@ class AdminLoginController extends Controller
     public function index()
     {
         if(Auth::guard('admin')->check()) {
-            return redirect(route('admin.dashoard'));
+            return redirect(route('admin.dashboard'));
         }else{
             return view('layout.auth.adminlogin');
         }
@@ -32,7 +32,7 @@ class AdminLoginController extends Controller
         $credentials = $request->only('username', 'password');
         if (Auth::guard('admin')->attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended(route('admin.dashoard'));
+            return redirect()->intended(route('admin.dashboard'));
         }
 
         return back()->withErrors([
