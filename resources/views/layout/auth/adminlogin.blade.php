@@ -6,7 +6,7 @@
     <div class="d-flex justify-content-center my-5">
         <div class="row my-5">
             <dib class="col">
-                <img src="{{ url('/') }}/img/login.jpg" alt="" class="img-fluid">
+                <img src="{{ url('/') }}/img/login.png" alt="" class="img-fluid w-50">
             </dib>
             <div class="col mx-3">
                 <form action="/adminlogin" method="POST">

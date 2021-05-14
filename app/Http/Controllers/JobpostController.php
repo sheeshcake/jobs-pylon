@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jobpost;
+use App\Models\Exam;
 use Auth;
 
 use Illuminate\Http\Request;
@@ -27,6 +28,11 @@ class JobpostController extends Controller
             "job_description" => "",
             "job_image" => "noimage.png"
         ])->id;
+        Exam::create([
+            "jobpost_id" => $id,
+            "exam_description" => "",
+            "exam_name" => ""
+        ]);
         return redirect(route("admin.jobpost", $id));
     }
 
@@ -38,6 +44,11 @@ class JobpostController extends Controller
             $file->move('img/jobimages', $file->getClientOriginalName());
             $job_image = $file->getClientOriginalName();
         }
+        Exam::where("jobpost_id", "=", $request->id)
+            ->update([
+                "exam_name" => $request->exam_name,
+                "exam_description" => $request->exam_description
+            ]);
         Jobpost::where("id", "=", $request->id)
             ->update([
                 "job_title" => $request->job_title,
@@ -49,8 +60,10 @@ class JobpostController extends Controller
 
     public function show($id){
         $posts = Jobpost::where("id", "=", $id)->get();
+        $exam = Exam::where("jobpost_id", "=", $id)->get();
         return view("layout.admin.jobpost")->with("data", [
-            "posts" => $posts
+            "posts" => $posts,
+            "exam" => $exam
         ]);
 
     }

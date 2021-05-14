@@ -30,6 +30,16 @@
                             <input type="file" class="custom-file-input" name="job_image" id="image_input">
                             <label class="custom-file-label" for="image_input">Choose Image</label>
                         </div>
+                        <div class="row my-2">
+                            <div class="form-group col">
+                                <label for="">Exam Name</label>
+                                <input type="text" name="exam_name" class="form-control" value="{{ $data['exam'][0]['exam_name'] }}">
+                            </div>
+                            <div class="form-group col">
+                                <label for="">Exam Link</label>
+                                <input type="text" name="exam_description" class="form-control" value="{{ $data['exam'][0]['exam_description'] }}">
+                            </div>
+                        </div>
                         <input type="submit" value="Submit" class="btn btn-primary">
                     </div>
                 </form>

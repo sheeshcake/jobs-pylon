@@ -17,6 +17,10 @@ class CreateApplicationsTable extends Migration
             $table->id();
             $table->foreignId('jobpost_id');
             $table->foreignId('exam_id');
+            $table->string('f_name');
+            $table->string('l_name');
+            $table->string('contact_number');
+            $table->string('address');
             $table->string('email')->unique();
             $table->string('resume_file');
             $table->string('application_file');

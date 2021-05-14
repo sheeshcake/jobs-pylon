@@ -6,9 +6,9 @@
     <div class="d-flex justify-content-center my-5">
         <div class="row my-5">
             <dib class="col">
-                <img src="{{ url('/') }}/img/login.jpg" alt="" class="img-fluid">
+                <img src="{{ url('/') }}/img/login.png" alt="" class="img-fluid w-75">
             </dib>
-            <div class="col mx-3">
+            <div class="col">
                 <form action="/login" method="POST">
                     @csrf
                     <h3>Login</h3>
@@ -27,8 +27,7 @@
                 </form>
                 <hr>
                 <div class="row">
-                    <button class="btn btn-primary col mx-2"><i class="fa fa-facebook-square" aria-hidden="true"></i> Login with Facebook</button>
-                    <button class="btn btn-primary col mx-2"><i class="fa fa-google" aria-hidden="true"></i> Login with Google</button>
+                    <a class="btn btn-primary col mx-2" href="{{ route('login.redirect', 'google') }}"><i class="fa fa-google" aria-hidden="true"></i> Login with Google</a>
                 </div>
             </div>
         </div>
