@@ -32,6 +32,7 @@ Route::group(["middleware" => 'auth:user'], function(){
     Route::prefix("/user")->group(function(){
         Route::get("/dashboard", [UserController::class, 'index'])->name("user.dashboard");
         Route::get("/profile", [UserController::class, 'index'])->name("user.profile");
+        Route::post("/profile/update", [UserController::class, 'update'])->name("user.update");
     });
     
 });

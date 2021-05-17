@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
+use App\Models\Application;
+use App\Models\Jobpost;
+
 use Auth;
 
 
@@ -20,7 +24,27 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('layout.admin.dashboard');
+        $applicants = Application::where("application_status", "=", "pending")->get()->toArray();
+        $onboard = Application::where("application_status", "=", "onboard")->get()->toArray();
+        $all = Application::all()->toArray();
+        $jobposts = Jobpost::all()->toArray();
+        foreach($jobposts as $index => $jobpost){
+            $applicant = Application::where("jobpost_id", "=", $jobpost["id"])->get()->toArray();
+            $jobposts[$index]["applicants_count"] = count($applicant);
+        }
+        // $barchart_data;
+        // foreach($jobposts as $index => $jobpost){
+        //     $applicant = Application::where("jobpost_id", "=", $jobpost["id"])->get()->toArray();
+        //     $barchart_data["labels"][$index] = $jobpost["job_title"];
+        //     $barchart_data["data"]["index"] = count($applicant);
+
+        // }
+        return view('layout.admin.dashboard')->with("data", [
+            "applicants" => $applicants,
+            "onboard" => $onboard,
+            "all" => $all,
+            "jobposts" => $jobposts
+        ]);
 
     }
 

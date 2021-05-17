@@ -7,7 +7,7 @@
 @section('content')
     <section class="mt-5">
         <div class="container">
-            <form action="">
+            <form action="{{ route('user.update') }}" method="POST">
                 @csrf
                 <div class="row">
                     <div class="col">
@@ -17,8 +17,14 @@
                             </div>
                             <div class="card-body">
                                 <div class="d-flex justify-content-center">
-                                    <img src="{{ auth()->user()->profile_image }}" alt="" class="rounded-circle">
+                                    @if (filter_var(auth()->user()->profile_image, FILTER_VALIDATE_URL))
+                                    <img src="{{ auth()->user()->profile_image }}" id="profile" alt="" class="rounded-circle">
+                                    @else
+                                    <img src="{{ url('/') }}/img/profiles/{{ auth()->user()->profile_image }}" id="profile" alt="" class="rounded-circle">
+                                    @endif
                                 </div>
+                                <input type="file" onchange="loadFile(event)" name="profile_picture">
+                                <input type="hidden" onchange="loadFile(event)" name="id" value="{{ auth()->user()->id }}">
                                 <hr>
                                 <div class="row mt-3">
                                     <div class="form-group col">
@@ -27,7 +33,7 @@
                                     </div>
                                     <div class="form-group col">
                                         <label for="">Last Name</label>
-                                        <input type="text" name="f_name" class="form-control" value="{{ auth()->user()->l_name }}">
+                                        <input type="text" name="l_name" class="form-control" value="{{ auth()->user()->l_name }}">
                                     </div>
                                 </div>
                                 <hr>
@@ -49,7 +55,7 @@
                                 <div class="row mt-3">
                                     <div class="form-group col">
                                         <label for="">Birthday</label>
-                                        <input type="date" name="user_birthday" class="form-control" value="{{ $data['user_details']['user_birthday'] }}">
+                                        <input type="date" name="user_birthday" class="form-control" value="{{ $data['user_details']['user_birthday'] }}" required>
                                     </div>
                                     <div class="form-group col">
                                         <label for="">Religion</label>
@@ -64,7 +70,7 @@
                                 <div class="row mt-3">
                                     <div class="form-group col">
                                         <label for="">Elementary</label>
-                                        <input type="text" name="user_elementaty" class="form-control" value="{{ $data['user_details']['user_elementary'] }}">
+                                        <input type="text" name="user_elementary" class="form-control" value="{{ $data['user_details']['user_elementary'] }}">
                                     </div>
                                     <div class="form-group col">
                                         <label for="">HighSchool</label>
@@ -122,6 +128,16 @@
             </form>
         </div>
     </section>
+    <script>
+        var loadFile = function(event) {
+            var output = document.getElementById('profile');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function() {
+            URL.revokeObjectURL(output.src) // free memory
+            }
+        };
+    
+    </script>
     
 
 @endsection

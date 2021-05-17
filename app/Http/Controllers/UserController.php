@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\UserDetails;
+use App\Models\User;
 
 use Auth;
 
@@ -66,7 +67,6 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
     }
 
     /**
@@ -76,9 +76,23 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $user_details = User::where("id", "=", $request->id)->get()->toArray();
+        $profile_picture = $request->file('profile_picture');
+        $profile_name = $user_details[0]["profile_image"];
+        if($profile_picture){
+            $profile_picture->move('img/profiles/', $profile_picture->getClientOriginalName());
+            $profile_name = $profile_picture->getClientOriginalName();
+        }
+        $user_update = [
+            "f_name" => $request->f_name,
+            "l_name" => $request->l_name,
+            "email" => $request->email,
+            "profile_image" => $profile_name
+        ];
+        User::where("id", "=", $request->id)->update($user_update);
+        UserDetails::where("user_id", "=", $request->id)->update($request->except(["f_name", "l_name", "email", "profile_picture", "_token", "id"]));
     }
 
     /**

@@ -879,6 +879,15 @@ section {
     border-radius: 0;
 }
 
+.nav-link .disabled:hover{
+    color: #1f58bb;
+    pointer-events: none;
+}
+.disabled:hover{
+    color: #1f58bb !important;
+}
+
+
 .features .feture-tabs .nav-link.active {
     color: #4154f1;
     border-bottom: 3px solid #4154f1;

@@ -19,6 +19,12 @@
                         <div class="row">
                             <div class="col-10">
                                 {{ $application["f_name"] . " " . $application["l_name"] }}
+                                <br>
+                                @if($application["application_status"] == "pending")
+                                    <span class="text-warning">{{ $application["application_status"] }}</span>
+                                @else
+                                    <span class="text-success">{{ $application["application_status"] }}</span>
+                                @endif
                             </div>
                             <div class="col-2">
                                 <a href="{{ route('admin.application', $application['id']) }}" class="btn btn-primary">Open</a>

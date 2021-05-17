@@ -66,7 +66,9 @@ class ApplicationController extends Controller
 
     public function approve(Request $request){
         $application = Application::where("id", "=", $request->application_id)->get()->toArray();
-        $data = 
+        Application::where("id", "=", $request->application_id)->update([
+            "application_status" => "onboard"
+        ]);
         $token = Hash::make($application[0]["email"]);
         $email = $application[0]["email"];
         $data = [
@@ -74,6 +76,6 @@ class ApplicationController extends Controller
             "email" => $email
         ];
         Mail::to($email)->send(new ApproveMail($data));
-        return "Email sent!";
+        return redirect()->back();
     }
 }

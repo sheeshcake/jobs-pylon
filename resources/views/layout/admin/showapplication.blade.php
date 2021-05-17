@@ -70,7 +70,12 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center mt-3">
+                            @if($data['application'][0]["application_status"] == "pending")
                             <input type="submit" class="btn btn-primary" value="Approve This Application">
+                            @else
+                            <input type="submit" class="btn btn-success" value="Application Approved!" disabled>
+                            @endif
+                            
                         </div>
                     </div>
                 </form>

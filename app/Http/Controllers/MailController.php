@@ -10,6 +10,5 @@ class MailController extends Controller
 {
     public function approveemail(){
         Mail::to("spooderm5@gmail.com")->send(new ApproveMail());
-        return "Email sent!";
     }
 }

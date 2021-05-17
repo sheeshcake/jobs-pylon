@@ -14,7 +14,7 @@ class TakeExamController extends Controller
     public function exam(Request $request){
         if(Hash::check($request->email, $request->token)){
             $application = Application::where("email", "=", $request->email)->get()->toArray();
-            if($application[0]["application_status"] == "pending"){
+            if($application[0]["application_status"] == "onboard"){
                 $exam = Exam::where("jobpost_id", "=", $application[0]['jobpost_id'])->get()->toArray();
                 $exam_data = explode('&', $exam[0]['exam_description']);
                 $parts = parse_url($exam[0]['exam_description'], PHP_URL_QUERY);
